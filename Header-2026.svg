@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 420" role="img" aria-labelledby="title desc">
+  <title id="title">WGP#1 2026 orange water-sport background</title>
+  <desc id="desc">Abstract orange speed lines and water waves on a dark background</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#090909"/>
+      <stop offset="0.48" stop-color="#311408"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9b42" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#f37021"/>
+      <stop offset="1" stop-color="#ffb15c" stop-opacity=".2"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="1440" height="420" fill="url(#bg)"/>
+  <ellipse cx="1050" cy="40" rx="440" ry="190" fill="#f37021" opacity=".28" filter="url(#blur)"/>
+  <path d="M-60 300C180 210 320 370 560 275S930 160 1180 238s330 18 420-36v230H-60Z" fill="#f37021" opacity=".62"/>
+  <path d="M-80 330c210-74 380 60 610-22s390-122 640-42 330 30 430-12" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="10"/>
+  <path d="M640 90 1470 10" stroke="url(#orange)" stroke-width="12"/>
+  <path d="M510 135 1480 52" stroke="url(#orange)" stroke-width="5" opacity=".8"/>
+  <path d="M760 175 1490 108" stroke="#fff" stroke-opacity=".22" stroke-width="3"/>
+  <g fill="none" stroke="#fff" stroke-opacity=".15">
+    <circle cx="1180" cy="280" r="115" stroke-width="2"/>
+    <circle cx="1180" cy="280" r="82" stroke-width="2"/>
+    <circle cx="1180" cy="280" r="48" stroke-width="2"/>
+  </g>
+  <path d="M0 0h1440v420H0z" fill="none" stroke="#f37021" stroke-width="10"/>
+</svg>
