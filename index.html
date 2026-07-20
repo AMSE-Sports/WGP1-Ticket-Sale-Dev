@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f37021">
   <title>WGP#1 2026 — Visitor & Ticket Registration</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260721-5">
 </head>
 <body>
   <header class="hero" aria-label="WGP#1 World Cup">
@@ -51,8 +51,30 @@
         <div class="grid two">
           <label><span class="field-title" data-i18n="country">ประเทศที่อาศัย *</span><select id="v-country" autocomplete="country-name" required></select></label>
           <label><span class="field-title" data-i18n="city">จังหวัดหรือเมือง *</span><input id="v-city" autocomplete="address-level1" required maxlength="100" data-i18n-placeholder="cityPlaceholder" placeholder="เช่น ชลบุรี / พัทยา"></label>
-          <label><span class="field-title" data-i18n="previousAttendance">เคยเข้าชม WGP#1 หรือไม่ *</span><select id="v-previous" required><option value="" data-i18n="selectOption">— กรุณาเลือก —</option><option value="first-time" data-i18n="firstTime">มาครั้งแรก</option><option value="returning" data-i18n="returning">เคยเข้าชมแล้ว</option></select></label>
-          <label><span class="field-title" data-i18n="discovery">ช่องทางหลักที่ทำให้มางาน *</span><select id="v-source" required><option value="" data-i18n="selectOption">— กรุณาเลือก —</option><option value="facebook">Facebook</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="youtube">YouTube</option><option value="google">Google / Search</option><option value="influencer" data-i18n="influencer">อินฟลูเอนเซอร์ / ครีเอเตอร์</option><option value="pattaya-promotion" data-i18n="pattayaPromotion">ป้ายหรือสื่อในพัทยา</option><option value="hotel-tour" data-i18n="hotelTour">โรงแรมหรือบริษัททัวร์</option><option value="friend-family" data-i18n="friendFamily">เพื่อนหรือครอบครัว</option><option value="previous-event" data-i18n="previousEvent">งาน WGP#1 ครั้งก่อน</option><option value="other" data-i18n="other">อื่น ๆ</option></select></label>
+          <fieldset class="visible-options full-span">
+            <legend class="field-title" data-i18n="previousAttendance">เคยเข้าชม WGP#1 หรือไม่ *</legend>
+            <div class="option-grid previous-options">
+              <label class="option-tile radio-tile"><input type="radio" name="v-previous" value="first-time" required><span data-i18n="firstTime">มาครั้งแรก</span></label>
+              <label class="option-tile radio-tile"><input type="radio" name="v-previous" value="returning"><span data-i18n="returning">เคยเข้าชมแล้ว</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="visible-options full-span">
+            <legend class="field-title" data-i18n="discovery">ช่องทางหลักที่ทำให้มางาน *</legend>
+            <p class="field-hint" data-i18n="sourceMultiHint">เลือกได้มากกว่า 1 ช่องทาง</p>
+            <div class="option-grid source-options">
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="facebook"><span>Facebook</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="instagram"><span>Instagram</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="tiktok"><span>TikTok</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="youtube"><span>YouTube</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="google"><span>Google / Search</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="influencer"><span data-i18n="influencer">อินฟลูเอนเซอร์ / ครีเอเตอร์</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="pattaya-promotion"><span data-i18n="pattayaPromotion">ป้ายหรือสื่อในพัทยา</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="hotel-tour"><span data-i18n="hotelTour">โรงแรมหรือบริษัททัวร์</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="friend-family"><span data-i18n="friendFamily">เพื่อนหรือครอบครัว</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="previous-event"><span data-i18n="previousEvent">งาน WGP#1 ครั้งก่อน</span></label>
+              <label class="option-tile checkbox-tile"><input type="checkbox" name="v-source" value="other"><span data-i18n="other">อื่น ๆ</span></label>
+            </div>
+          </fieldset>
         </div>
 
         <div id="guardian-panel" class="guardian-panel hidden">
@@ -96,6 +118,6 @@
     <section id="screen-complete" class="screen hidden"><div class="complete-card"><div class="success-icon large">✓</div><p class="eyebrow" data-i18n="registrationComplete">ลงทะเบียนเสร็จสมบูรณ์</p><h2 data-i18n="completeTitle">ดำเนินการเสร็จสมบูรณ์</h2><p><span data-i18n="transactionNumber">หมายเลขรายการ</span> <strong id="transaction-id">—</strong></p><p class="muted" data-i18n="localDataNotice">ข้อมูลทดสอบถูกเก็บเฉพาะในอุปกรณ์นี้ และยังไม่ส่งเข้าฐานข้อมูลจริง</p><button id="next-customer" class="btn primary" type="button" data-i18n="nextGroup">เริ่มรายการผู้ชมชุดถัดไป</button></div></section>
   </main>
   <footer data-i18n="footer">© 2026 WGP#1 · สำเนาสำหรับพัฒนา</footer>
-  <script src="app.js?v=20260721-4"></script>
+  <script src="app.js?v=20260721-5"></script>
 </body>
 </html>
