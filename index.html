@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f37021">
+  <title>WGP#1 2026 — Visitor & Ticket Registration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero" aria-label="WGP#1 World Cup">
+    <img src="Header.png" alt="WGP#1 Waterjet World Cup">
+    <div class="hero-cover" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <span class="year-chip">2026 DEVELOPMENT VERSION</span>
+      <h1>WGP#1 WATERJET WORLD CUP 2026</h1>
+      <p>Visitor Registration & Ticket Sale</p>
+    </div>
+  </header>
+
+  <div class="dev-notice" role="status">
+    <strong>เวอร์ชันทดสอบปี 2026</strong>
+    <span>วันแข่งขันและราคาตั๋วเป็นค่าร่าง ข้อมูลจะเก็บในอุปกรณ์นี้เท่านั้นและยังไม่ส่งเข้าฐานข้อมูลจริง</span>
+  </div>
+
+  <main>
+    <section id="screen-visitor" class="screen">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">PART 1 · VISITOR</p>
+          <h2>ลงทะเบียนผู้เข้าชมรายบุคคล</h2>
+          <p>ผู้เข้าชมทุกคนต้องกรอกข้อมูลของตนเองทีละคนก่อนเข้าสู่ขั้นตอนจำหน่ายตั๋ว</p>
+        </div>
+        <div class="attendee-counter" aria-live="polite">
+          <span>ลงทะเบียนแล้ว</span>
+          <strong id="visitor-count">0 คน</strong>
+        </div>
+      </div>
+
+      <form id="visitor-form" class="card" novalidate>
+        <div class="progress" aria-label="ความคืบหน้า">
+          <span class="active">1 ข้อมูลผู้ชม</span>
+          <span>2 ยืนยันสิทธิ</span>
+          <span>3 ส่งต่อเจ้าหน้าที่</span>
+        </div>
+
+        <div class="section-title">
+          <span class="section-number">1</span>
+          <div><h3>ข้อมูลประจำตัว</h3><p>Personal information</p></div>
+        </div>
+
+        <div class="grid two">
+          <label>ชื่อจริง <span>First name *</span>
+            <input id="v-first" autocomplete="given-name" required maxlength="80">
+          </label>
+          <label>นามสกุล <span>Last name *</span>
+            <input id="v-last" autocomplete="family-name" required maxlength="80">
+          </label>
+          <label>ช่วงอายุ <span>Age group *</span>
+            <select id="v-age" required>
+              <option value="">— กรุณาเลือก / Select —</option>
+              <option value="under-10">ต่ำกว่า 10 ปี / Under 10</option>
+              <option value="10-19">10–19 ปี / 10–19</option>
+              <option value="20-39">20–39 ปี / 20–39</option>
+              <option value="40-59">40–59 ปี / 40–59</option>
+              <option value="60-plus">60 ปีขึ้นไป / 60+</option>
+            </select>
+          </label>
+          <label>เพศ <span>Gender *</span>
+            <select id="v-gender" required>
+              <option value="">— กรุณาเลือก / Select —</option>
+              <option value="male">ชาย / Male</option>
+              <option value="female">หญิง / Female</option>
+              <option value="non-binary">นอนไบนารี / Non-binary</option>
+              <option value="not-specified">ไม่ประสงค์ระบุ / Prefer not to say</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="section-title">
+          <span class="section-number">2</span>
+          <div><h3>ที่อยู่อาศัยและข้อมูลผู้ชม</h3><p>Audience profile</p></div>
+        </div>
+
+        <div class="grid two">
+          <label>ประเทศที่อาศัย <span>Country of residence *</span>
+            <input id="v-country" list="country-list" autocomplete="country-name" required maxlength="80" placeholder="เช่น Thailand">
+            <datalist id="country-list"></datalist>
+          </label>
+          <label>จังหวัดหรือเมือง <span>Province / City *</span>
+            <input id="v-city" autocomplete="address-level1" required maxlength="100" placeholder="เช่น Chonburi / Pattaya">
+          </label>
+          <label>เคยเข้าชม WGP#1 หรือไม่ <span>Previous attendance *</span>
+            <select id="v-previous" required>
+              <option value="">— กรุณาเลือก / Select —</option>
+              <option value="first-time">มาครั้งแรก / First time</option>
+              <option value="returning">เคยเข้าชมแล้ว / Returning visitor</option>
+            </select>
+          </label>
+          <label>ช่องทางหลักที่ทำให้มางาน <span>Main discovery channel *</span>
+            <select id="v-source" required>
+              <option value="">— กรุณาเลือก / Select —</option>
+              <option value="facebook">Facebook</option>
+              <option value="instagram">Instagram</option>
+              <option value="tiktok">TikTok</option>
+              <option value="youtube">YouTube</option>
+              <option value="google">Google / Search</option>
+              <option value="influencer">Influencer / Creator</option>
+              <option value="pattaya-promotion">ป้ายหรือสื่อในพัทยา / Pattaya promotion</option>
+              <option value="hotel-tour">โรงแรมหรือบริษัททัวร์ / Hotel or tour</option>
+              <option value="friend-family">เพื่อนหรือครอบครัว / Friend or family</option>
+              <option value="previous-event">งาน WGP#1 ครั้งก่อน / Previous event</option>
+              <option value="other">อื่น ๆ / Other</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="guardian-panel" class="guardian-panel hidden">
+          <div class="section-title compact">
+            <span class="section-number">3</span>
+            <div><h3>ข้อมูลผู้ปกครอง</h3><p>Required for visitors under 20</p></div>
+          </div>
+          <div class="grid two">
+            <label>ชื่อ–นามสกุลผู้ปกครอง <span>Guardian name *</span>
+              <input id="g-name" autocomplete="name" maxlength="160">
+            </label>
+            <label>ความสัมพันธ์ <span>Relationship *</span>
+              <select id="g-relation">
+                <option value="">— กรุณาเลือก / Select —</option>
+                <option value="parent">บิดา/มารดา / Parent</option>
+                <option value="legal-guardian">ผู้ปกครองตามกฎหมาย / Legal guardian</option>
+                <option value="authorized-adult">ผู้ใหญ่ที่ได้รับมอบหมาย / Authorized adult</option>
+              </select>
+            </label>
+            <label>เบอร์โทรศัพท์ผู้ปกครอง <span>Guardian phone *</span>
+              <input id="g-phone" type="tel" autocomplete="tel" maxlength="30">
+            </label>
+          </div>
+          <label class="check-line">
+            <input id="g-confirm" type="checkbox">
+            <span>ข้าพเจ้าเป็นผู้ปกครองหรือผู้มีอำนาจดำเนินการแทนผู้เยาว์ และยืนยันข้อมูลข้างต้น<br><small>I am authorized to act for this minor and confirm the information above.</small></span>
+          </label>
+        </div>
+
+        <div class="section-title">
+          <span class="section-number">4</span>
+          <div><h3>ประกาศความเป็นส่วนตัวและสื่อภายในงาน</h3><p>Privacy notice & event media</p></div>
+        </div>
+
+        <div class="privacy-box">
+          <p><strong>การลงทะเบียนและจำหน่ายตั๋ว:</strong> WGP#1 เก็บข้อมูลที่จำเป็นเพื่อยืนยันตัวผู้เข้าชม บริหารตั๋ว วิเคราะห์จำนวนผู้ชม และรักษาความปลอดภัยภายในงาน โดยจัดเก็บตามระยะเวลาที่องค์กรกำหนดและให้สิทธิเจ้าของข้อมูลตามกฎหมาย</p>
+          <p><strong>ภาพถ่ายและการถ่ายทอดสด:</strong> พื้นที่จัดการแข่งขันอาจมีการบันทึกภาพ เสียง และถ่ายทอดสดเพื่อรายงานการแข่งขันและประชาสัมพันธ์งาน หากมีข้อกังวล กรุณาแจ้งเจ้าหน้าที่ก่อนเข้าสู่พื้นที่กล้อง</p>
+          <p class="en-copy">WGP#1 processes necessary information for registration, ticket administration, audience analysis and event safety. The venue may include photography, audio recording and live broadcasting.</p>
+        </div>
+
+        <label class="check-line required-line">
+          <input id="v-privacy" type="checkbox" required>
+          <span>ฉันได้อ่านและรับทราบประกาศความเป็นส่วนตัวและข้อมูลเกี่ยวกับสื่อภายในงาน<br><small>I have read and acknowledged the Privacy Notice and event media information.</small></span>
+        </label>
+        <label class="check-line optional-line">
+          <input id="v-marketing" type="checkbox">
+          <span>ฉันยินยอมรับข่าวสารการแข่งขันและกิจกรรมในอนาคตจาก WGP#1 (ไม่บังคับ)<br><small>I agree to receive future WGP#1 news and offers (optional).</small></span>
+        </label>
+
+        <div id="visitor-error" class="form-error hidden" role="alert"></div>
+        <button class="btn primary wide" type="submit">ยืนยันข้อมูลผู้เข้าชมคนนี้ · Confirm This Visitor</button>
+      </form>
+    </section>
+
+    <section id="screen-group" class="screen hidden">
+      <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <p class="eyebrow">VISITOR CONFIRMED</p>
+        <h2>บันทึกผู้เข้าชมเรียบร้อยแล้ว</h2>
+        <p id="group-message">ลงทะเบียนแล้ว 1 คน</p>
+        <div class="choice-grid">
+          <button id="add-visitor" class="choice-card" type="button">
+            <span class="choice-icon">＋</span>
+            <strong>ลงทะเบียนผู้ชมคนถัดไป</strong>
+            <small>Add another visitor</small>
+          </button>
+          <button id="finish-visitors" class="choice-card orange" type="button">
+            <span class="choice-icon">→</span>
+            <strong>กรอกข้อมูลผู้ชมครบแล้ว</strong>
+            <small>Continue to staff handover</small>
+          </button>
+        </div>
+        <button id="remove-last" class="text-button" type="button">ลบผู้ชมคนล่าสุด / Remove last visitor</button>
+      </div>
+    </section>
+
+    <section id="screen-handover" class="screen hidden">
+      <div class="handover">
+        <div class="handover-lock">STAFF NEXT</div>
+        <h2>การลงทะเบียนผู้ชมเสร็จสมบูรณ์</h2>
+        <p class="handover-count"><strong id="handover-count">0</strong> ผู้เข้าชม</p>
+        <p>กรุณาส่งอุปกรณ์คืนให้เจ้าหน้าที่<br><span>Please return this device to the staff to complete ticketing and payment.</span></p>
+        <button id="to-staff" class="btn dark" type="button">สำหรับเจ้าหน้าที่ · Staff Continue</button>
+      </div>
+    </section>
+
+    <section id="screen-staff" class="screen hidden">
+      <div class="page-head">
+        <div><p class="eyebrow">PART 2 · STAFF ONLY</p><h2>สรุปรายการจำหน่ายตั๋ว</h2><p>เลือกประเภทตั๋วให้ครบตามจำนวนผู้ชมที่ลงทะเบียน</p></div>
+        <div class="attendee-counter dark-counter"><span>ผู้ชมในรายการ</span><strong id="staff-attendee-count">0 คน</strong></div>
+      </div>
+
+      <form id="staff-form" class="card" novalidate>
+        <div class="grid two">
+          <label>เจ้าหน้าที่ <span>Staff *</span>
+            <select id="s-staff" required>
+              <option value="">— เลือกเจ้าหน้าที่ / Select —</option>
+              <option value="Namwan">น้ำหวาน</option>
+              <option value="Aom">อ้อม</option>
+              <option value="Belle">เบล</option>
+              <option value="Cartoon">การ์ตูน</option>
+              <option value="Other">อื่น ๆ / Other</option>
+            </select>
+          </label>
+          <label>ช่องทางการชำระ <span>Payment method *</span>
+            <select id="s-payment" required>
+              <option value="">— กรุณาเลือก / Select —</option>
+              <option value="cash">เงินสด / Cash</option>
+              <option value="qr-transfer">QR / Bank transfer</option>
+              <option value="complimentary">บัตรเชิญ / Complimentary</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="ticket-head">
+          <div><h3>ประเภทและจำนวนตั๋ว</h3><p>Ticket types & quantities</p></div>
+          <div class="quantity-match"><span>ต้องจัดสรร</span><strong id="tickets-required">0 ใบ</strong></div>
+        </div>
+        <div id="ticket-lines" class="ticket-lines"></div>
+
+        <div class="staff-summary">
+          <div><span>จำนวนตั๋วรวม</span><strong id="ticket-total-qty">0 ใบ</strong></div>
+          <div><span>ยอดคำนวณ</span><strong id="calculated-total">0 THB</strong></div>
+          <label>ยอดรับจริง <span>Amount paid (THB) *</span>
+            <input id="s-amount" type="number" min="0" step="1" required>
+          </label>
+        </div>
+
+        <label>หมายเหตุ <span>Staff note</span>
+          <textarea id="s-note" rows="3" maxlength="500" placeholder="ส่วนลด บัตรเชิญ หรือกรณีพิเศษ"></textarea>
+        </label>
+
+        <div id="staff-error" class="form-error hidden" role="alert"></div>
+        <div class="button-row">
+          <button id="back-handover" class="btn secondary" type="button">ย้อนกลับ</button>
+          <button class="btn primary" type="submit">ยืนยันและบันทึกรายการ · Finalize</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="screen-complete" class="screen hidden">
+      <div class="complete-card">
+        <div class="success-icon large">✓</div>
+        <p class="eyebrow">REGISTRATION COMPLETE</p>
+        <h2>ดำเนินการเสร็จสมบูรณ์</h2>
+        <p>หมายเลขรายการ <strong id="transaction-id">—</strong></p>
+        <p class="muted">ข้อมูลทดสอบถูกเก็บเฉพาะในอุปกรณ์นี้ และยังไม่ส่งเข้าฐานข้อมูลจริง</p>
+        <button id="next-customer" class="btn primary" type="button">เริ่มรายการผู้ชมชุดถัดไป</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 WGP#1 · Development Copy</footer>
+  <script src="app.js"></script>
+</body>
+</html>
