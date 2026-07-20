@@ -184,8 +184,15 @@ function renderTickets() {
     const name = t(ticket.nameKey); const row = document.createElement("div"); row.className = "ticket-line";
     const description = document.createElement("div"); const title = document.createElement("strong"); title.textContent = name;
     const note = document.createElement("p"); note.textContent = ticket.price ? `${localizedNumber(ticket.price)} THB ${t("perTicket")}` : t("noCharge"); description.append(title, note);
-    const qty = document.createElement("input"); qty.type = "number"; qty.min = "0"; qty.step = "1"; qty.value = state.ticketQuantities[ticket.id] || 0; qty.setAttribute("aria-label", t("quantityFor", { name }));
-    qty.addEventListener("input", () => { state.ticketQuantities[ticket.id] = Math.max(0, Number(qty.value || 0)); updateTicketSummary(); });
+    const qty = document.createElement("input"); qty.type = "number"; qty.min = "0"; qty.step = "1"; qty.value = state.ticketQuantities[ticket.id] || 0; qty.dataset.ticketId = ticket.id; qty.setAttribute("aria-label", t("quantityFor", { name }));
+    qty.addEventListener("input", () => {
+      const otherTickets = APP_CONFIG.ticketTypes.reduce((total, item) => item.id === ticket.id ? total : total + Math.max(0, Number(state.ticketQuantities[item.id] || 0)), 0);
+      const maximumForThisType = Math.max(0, state.attendees.length - otherTickets);
+      const requested = Math.max(0, Math.floor(Number(qty.value || 0)));
+      state.ticketQuantities[ticket.id] = Math.min(requested, maximumForThisType);
+      qty.value = state.ticketQuantities[ticket.id];
+      updateTicketSummary();
+    });
     const price = document.createElement("strong"); price.className = "ticket-price"; price.textContent = `${localizedNumber(ticket.price)} THB`;
     row.append(description, qty, price); container.appendChild(row);
   }); updateTicketSummary();
@@ -193,7 +200,18 @@ function renderTickets() {
 function calculateTickets() {
   return APP_CONFIG.ticketTypes.reduce((summary, ticket) => { const quantity = Math.max(0, Number(state.ticketQuantities[ticket.id] || 0)); if (quantity) summary.items.push({ ticketType: ticket.id, ticketName: t(ticket.nameKey), unitPrice: ticket.price, quantity, lineTotal: ticket.price * quantity }); summary.quantity += quantity; summary.total += ticket.price * quantity; return summary; }, { items: [], quantity: 0, total: 0 });
 }
-function updateTicketSummary() { const summary = calculateTickets(); $("ticket-total-qty").textContent = `${localizedNumber(summary.quantity)} ${t("ticketUnit")}`; $("calculated-total").textContent = `${localizedNumber(summary.total)} THB`; if (document.activeElement !== $("s-amount")) $("s-amount").value = summary.total; }
+function updateTicketSummary() {
+  const summary = calculateTickets();
+  const remaining = Math.max(0, state.attendees.length - summary.quantity);
+  document.querySelectorAll("#ticket-lines input[data-ticket-id]").forEach(input => {
+    const currentQuantity = Math.max(0, Number(state.ticketQuantities[input.dataset.ticketId] || 0));
+    input.max = String(currentQuantity + remaining);
+    input.disabled = state.attendees.length === 0;
+  });
+  $("ticket-total-qty").textContent = `${localizedNumber(summary.quantity)} ${t("ticketUnit")}`;
+  $("calculated-total").textContent = `${localizedNumber(summary.total)} THB`;
+  if (document.activeElement !== $("s-amount")) $("s-amount").value = summary.total;
+}
 function resetAll() { state.attendees = []; state.ticketQuantities = {}; $("staff-form").reset(); resetVisitorForm(); renderTickets(); updateCounts(); showScreen("screen-visitor"); }
 function buildTransaction() {
   const ticketSummary = calculateTickets(); const transactionId = `JWC26-${new Date().toISOString().replace(/\D/g, "").slice(2,14)}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
